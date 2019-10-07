@@ -20,4 +20,8 @@ interface DriverInterface {
     public function isDir(string $path): bool;
 
     public function exists(string $path): bool;
+
+    public function move(string $from, string $to): bool;
+
+    public function copy(string $from, string $to): bool;
 }
