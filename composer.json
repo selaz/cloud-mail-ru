@@ -1,0 +1,17 @@
+{
+	"name": "selaz/cloud-storage-api",
+	"description": "Cloud storage api",
+	"type": "library",
+	"require": {
+		"php": ">=7.2",
+		"ext-json": ">=1.4",
+		"guzzlehttp/guzzle": "^6.3",
+		"monolog/monolog": "^2.0",
+		"bramus/monolog-colored-line-formatter": "^3.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Selaz\\": ["src/", "tests/"]
+		}
+	}
+}
