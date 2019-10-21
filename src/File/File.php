@@ -3,20 +3,20 @@
 namespace Selaz;
 
 class File {
-	
+
 	private $path;
-	
-    public function __construct(string $path) {
+
+	public function __construct(string $path) {
 		$this->path = $path;
 	}
-	
+
 	/**
 	 * @return string
 	 */
 	public function __toString() {
 		return $this->path;
 	}
-	
+
 	public function getName(): string {
 		return basename($this->path);
 	}
@@ -24,7 +24,7 @@ class File {
 	public function getSize() {
 		return filesize($this->path);
 	}
-	
+
 	public function getResource(string $mode = 'r') {
 		return fopen($this->path, $mode);
 	}
@@ -40,7 +40,7 @@ class File {
 		$atime = $atime ?? time();
 		return touch($this->path, $time, $atime);
 	}
-	
+
 	/**
 	 * 
 	 * @return true
@@ -48,9 +48,9 @@ class File {
 	 */
 	public function create(): bool {
 		if (!$this->touch()) {
-			throw new FileException('Can`t create file',3);
+			throw new FileException('Can`t create file', 3);
 		}
-		
+
 		return true;
 	}
 
@@ -62,7 +62,7 @@ class File {
 	public function exist(): bool {
 		return is_file($this->path);
 	}
-	
+
 	/**
 	 * Return true if file is writable
 	 * 
@@ -81,21 +81,21 @@ class File {
 	 * @return int|false
 	 * @throws FileException
 	 */
-	public function put($content, bool $append = false, bool $lock = false) {		
+	public function put($content, bool $append = false, bool $lock = false) {
 		$flags = ($append) ? FILE_APPEND : 0;
 		$flags = ($lock) ? $flags | LOCK_EX : $flags;
-		
+
 		if (!$this->exist()) {
 			$this->create();
 		}
-		
+
 		if (!$this->writable()) {
-			throw new FileException('File isn`t writable',2);
+			throw new FileException('File isn`t writable', 2);
 		}
-		
+
 		return file_put_contents($this->path, $content, $flags);
 	}
-	
+
 	/**
 	 * 
 	 * @param int $offset
@@ -103,15 +103,16 @@ class File {
 	 * @return string|false
 	 */
 	public function get(int $offset = 0, ?int $len = null) {
-		
+
 		if (!$this->exist()) {
-			throw new FileException('File not exists',1);
+			throw new FileException('File not exists', 1);
 		}
-		
+
 		if ($len) {
 			return file_get_contents($this->path, false, null, $offset, $len);
 		} else {
 			return file_get_contents($this->path, false, null, $offset);
 		}
 	}
+
 }

@@ -117,21 +117,21 @@ trait LoggerTrait {
 	}
 
 	protected function log($level, $message, array $context = []) {
-		
+
 		$handler = new StreamHandler('php://stdout', Logger::DEBUG);
 		$handler->setFormatter(
-				new ColoredLineFormatter(
-					new TrafficLight(), 
-					'[%datetime%] %channel%.%level_name%: %message% %context%'
-				)
-			);
-		
-		$stack = debug_backtrace()[1] ?? ['file'=>null,'line'=>null];
-		
+			new ColoredLineFormatter(
+				new TrafficLight(),
+				'[%datetime%] %channel%.%level_name%: %message% %context%'
+			)
+		);
+
+		$stack = debug_backtrace()[1] ?? ['file' => null, 'line' => null];
+
 		$message = sprintf('%s:%s %s', $stack['file'], $stack['line'], $message);
-		
+
 		$logger = new Logger('Selaz', [$handler]);
 		$logger->log($level, $message, $context);
 	}
-	
+
 }

@@ -1,15 +1,15 @@
 <?php
 
-namespace Selaz\Cloud; 
+namespace Selaz\Cloud;
 
 class Entitie {
-	
+
 	private $path;
-	
+
 	public function __construct(?string $path) {
 		$this->setPath($path);
 	}
-	
+
 	public function getName(): ?string {
 		return basename($this->path);
 	}
@@ -21,4 +21,5 @@ class Entitie {
 	private function setPath(?string $path) {
 		$this->path = $path;
 	}
+
 }
