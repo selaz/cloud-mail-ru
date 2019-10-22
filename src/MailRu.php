@@ -213,6 +213,7 @@ class MailRu implements DriverInterface {
 			switch ($item['type']) {
 				case "file":
 					$object = new CloudFile($item['home']);
+					$object->setMtime($item['mtime']);
 					break;
 				case "folder":
 					$object = new CloudFolder($item['home']);
